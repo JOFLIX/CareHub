@@ -8,11 +8,34 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-@app.route("/")
+
 @app.route("/home")
 def home():
     posts = Post.query.all()
     return render_template('home.html', posts=posts)
+
+@app.route("/", methods=['GET','POST'])
+def index():
+    """
+    View root page function that returns the index page and its data
+    """
+    # posts = Post.query.all()
+    # form = SubscriberForm()
+    # if form.validate_on_submit():
+    #     email = form.email.data
+
+    #     new_subscriber=Subscriber(email=email)
+    #     new_subscriber.save_subscriber()
+
+    #     mail_message("Subscription Received","email/welcome_subscriber",new_subscriber.email,subscriber=new_subscriber)
+
+    # title = "Welcome to My Blog"
+
+    # name  = "Quote"
+    # quote = get_quote()
+
+    return render_template('index.html')
+
 
 
 @app.route("/about")
@@ -143,3 +166,4 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
+
